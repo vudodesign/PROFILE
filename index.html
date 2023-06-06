@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        .div1 {
+            float: left;
+            width: 250px;
+            height: 200px;
+            margin: 10px;
+            padding: 10px;
+            /* border: 1px solid white; */
+            border-radius: 10px;
+            justify-content: center;
+        }
+        .bg {
+            background-image: url(bg.png);
+            width: 100%;
+            height: 1000px;
+            position: relative;
+        }
+        .o1 {
+            position: absolute;
+            top: 400px;
+            left: 250px;
+        }
+        .o2 {
+            position: absolute;
+            top: 0px;
+            left: 600px;
+        }
+        .o3 {
+            position: absolute;
+            top: 480px;
+            left: 860px;
+        }
+        .o4 {
+            position: absolute;
+            top: 200px;
+            left: 1200px;
+        }
+        .number {
+            padding: 6px;
+            max-width: 13px;
+            max-height: 15px;
+            padding-left: 10px;
+            color: white;
+            background-color: red;
+            border-radius: 20px;
+        }
+        .div1, .o4 , .o3  , .o2 ,.o1 , .o {
+    transition: width 3s, height 3s;
+            
+}
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            // ev.target.appendChild(document.getElementById(data));
+            var draggedElement = document.getElementById(data);
+            var targetElement = ev.target;
+
+            // Kiểm tra nếu hình ảnh UFO được thả vào điểm cuối
+            if (targetElement.classList.contains('o')) {
+                // Giảm kích thước của hình ảnh UFO
+                draggedElement.style.width = '100%';
+                draggedElement.style.height = '100%';
+            } else if (targetElement.classList.contains('o1')) {
+                draggedElement.style.width = '75%';
+                draggedElement.style.height = '75%';
+            } else  if (targetElement.classList.contains('o2')) {
+                draggedElement.style.width = '50%';
+                draggedElement.style.height = '50%';
+            }  else  if (targetElement.classList.contains('o3')) {
+                draggedElement.style.width = '25%';
+                draggedElement.style.height = '25%';
+            } else  if (targetElement.classList.contains('o4')) {
+                draggedElement.style.width = '10%';
+                draggedElement.style.height = '10%';
+            } 
+
+            targetElement.appendChild(draggedElement);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="div1 o" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="number">1</div>
+            <img src="ufo.png" style="width: 100%; height:  100%;" draggable="true" ondragstart="drag(event)" id="drag1"
+                width="88" height="31">
+        </div>
+
+        <div class="div1 o1" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="number">2</div>
+        </div>
+        <div class="div1 o2" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="number">3</div>
+        </div>
+        <div class="div1 o3" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="number">4</div>
+        </div>
+        <div class="div1 o4" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="number">5</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
